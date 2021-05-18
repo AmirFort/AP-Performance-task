@@ -1,0 +1,82 @@
+//declare variables
+var region = getColumn("Volcano Eruptions", "Region");
+var idRank = getColumn("Volcano Eruptions", "id");
+var maar = getColumn("Volcano Eruptions", "Type");
+var caldera = getColumn("Volcano Eruptions", "Type");
+var lavaDome = getColumn("Volcano Eruptions", "Type");
+var pyroCone = getColumn("Volcano Eruptions", "Type");
+var stratovolcano = getColumn("Volcano Eruptions", "Type");
+var complex = getColumn("Volcano Eruptions", "Type");
+var submarine = getColumn("Volcano Eruptions", "Type");
+var shield = getColumn("Volcano Eruptions", "Type");
+var volcanicField = getColumn("Volcano Eruptions", "Type");
+var explosionCrater = getColumn("Volcano Eruptions", "Type");
+var fissureVent = getColumn("Volcano Eruptions", "Type");
+
+var filteredRegion = [];
+var filteredType = [];
+var filteredIdRank=[];
+
+onEvent("regionChoice", "input", function( ) {
+  filter(getText("regionChoice"), getText("typeChoice"));
+  updateScreen(filteredRegion, filteredType, filteredIdRank);
+});
+
+onEvent("typeChoice", "input", function( ) {
+  filter(getText("regionChoice"), getText("typeChoice"));
+  updateScreen(filteredRegion, filteredType, filteredIdRank);
+});
+//filter
+function filter(regionChoice, typeChoice){
+  refreshList();
+  for(var i=0; i<region.length; i++ ){
+  if(regionChoice == region[i]){
+appendItem(filteredRegion,regionChoice);
+ appendItem(filteredType,typeChoice);
+ appendItem(filteredIdRank, getRank(typeChoice) [i]); 
+  }
+  }
+ 
+}
+function refreshList() {
+  filteredRegion = [];
+ filteredType = [];
+ filteredIdRank=[]; 
+}
+
+
+
+function getRank(typeChoice) {
+  if(typeChoice == "maar"){ 
+    return maar;
+    } else if (typeChoice == "Caldera"){ 
+    return caldera;
+    }else if (typeChoice == "Lava Dome"){ 
+    return lavaDome;
+  } else if (typeChoice == "Pyroclastic cone"){ 
+    return pyroCone;
+    }else if (typeChoice == "Stratovolcano"){ 
+    return stratovolcano;  
+    }else if (typeChoice == "Complex "){ 
+    return complex;
+  }else if (typeChoice == "Submarine"){ 
+    return submarine;
+  } else if (typeChoice == "Shield") {
+    return shield;
+  } else if ((typeChoice == "Volcanic Field")) {
+    return volcanicField;
+  } else if (typeChoice == "Explosion Crater") {
+    return explosionCrater;
+  } else if (typeChoice == "Fissure Vent") {
+    return fissureVent;
+  } else {
+    return idRank;
+  }
+}
+// 
+// 
+function updateScreen(regionFilter, typeFilter, rankFilter) {
+  var textOutput = "Region: " + regionFilter + "\nType: " + typeFilter + "\nRank: " + rankFilter;
+setText("output", textOutput);
+  
+}
